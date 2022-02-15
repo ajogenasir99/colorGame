@@ -1,0 +1,101 @@
+body {
+    background-color: #232323;
+    text-align: center;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+main{
+    height: 80vh;
+}
+
+h1 {
+    color: white;
+    text-align: center;
+    background-color: steelblue;
+    margin: 0;
+    padding: .5rem 0;
+    line-height: 1.1;
+    font-weight: normal;
+}
+
+.message {
+    color: steelblue;
+    font-size: inherit;
+    font-weight: 700;
+    transition: visibility 1s;
+}
+
+.game-color {
+    text-transform: uppercase;
+    display: block;
+    margin: 5px 0;
+}
+
+div:first-of-type{
+    background-color: white;
+}
+
+.game-controls {
+    background-color: white;
+    height: 2rem;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    max-width: 450px;
+    margin: 0 auto;
+}
+
+.selected {
+    background-color: steelblue;
+    color: white;
+}
+
+
+.container {
+    max-width: 600px;
+    margin: 1rem auto;
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    align-items: center;
+    height: 90%;
+    align-content: flex-start;
+}
+
+.square {
+    flex-basis: 30%;
+    background-color: purple;
+    height: 30%;
+    margin-bottom: 1rem;
+    max-height: 180px;
+    border-radius: 10%;
+    transition: opacity .2s ease-in;
+}
+
+.buttons{
+    height: 100%;
+}
+
+button {
+    font-family: 'Ubuntu', sans-serif;
+    border: none;
+    background: none;
+    height: 100%;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: steelblue;
+    letter-spacing: 1px;
+    font-size: inherit;
+    transition: all .5s;
+}
+
+button:hover{
+    color: white;
+    background-color: steelblue;
+}
+
+@media screen and (max-width: 540px){
+    .container{
+        align-content: center;
+    }
+}
