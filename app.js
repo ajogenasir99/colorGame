@@ -1,90 +1,35 @@
-let numOfSquares = 6
-let colors = generateRandomColors(numOfSquares);
+let numOfSquares = 6;
+let guessCount = 0;
+let colors = [];
+let pickedColor;
 let squares = document.querySelectorAll('.square');
-let pickedColor = pickColor();
 let colorDisplay = document.querySelector('.game-color');
-colorDisplay.textContent = pickedColor;
 let guess = document.querySelector('.message');
 let h1 = document.querySelector('h1');
 let resetBtn = document.querySelector('#reset');
-let hardBtn = document.querySelector('#hardBtn');
-let easyBtn = document.querySelector('#easyBtn');
+let levelBtns = document.querySelectorAll('.level');
+
+
+game();
+
+function game() {
+    gameStart();
+}
+
+function gameStart() {
+
+    gameLogic()
+
+    levelButtonSetUp()
+
+    gameRestart()
+}
 
 
 resetBtn.addEventListener('click', function () {
-    document.location.reload();
-});
-
-easyBtn.addEventListener('click', function () {
-    easyBtn.classList.add('selected');
-    hardBtn.classList.remove('selected');
-    numOfSquares = 3;
-    colors = generateRandomColors(numOfSquares);
-    pickedColor = pickColor();
-    colorDisplay.textContent = pickedColor;
-    h1.style.backgroundColor = "steelblue";
-    h1.style.color = 'white';
-    guess.textContent = '';
-    resetBtn.textContent = 'New colors'
-
-    for (let i = 0; i < squares.length; i++) {
-        if (colors[i]) {
-            squares[i].style.backgroundColor = colors[i];
-        } else {
-            squares[i].style.display = "none";
-        }
-
-    }
-
-})
-
-hardBtn.addEventListener('click', function () {
-    hardBtn.classList.add('selected');
-    easyBtn.classList.remove('selected');
-
     numOfSquares = 6;
-    colors = generateRandomColors(numOfSquares);
-    pickedColor = pickColor();
-    colorDisplay.textContent = pickedColor;
-    h1.style.backgroundColor = "steelblue";
-    h1.style.color = 'white';
-    guess.textContent = '';
-    resetBtn.textContent = 'New colors';
-
-
-    for (let i = 0; i < squares.length; i++) {
-
-        squares[i].style.backgroundColor = colors[i];
-        squares[i].style.display = "block";
-
-    }
-
-})
-
-
-
-for (let i = 0; i < squares.length; i++) {
-    // add square colors
-    squares[i].style.backgroundColor = colors[i];
-
-    // add square event listener(click event);
-    squares[i].addEventListener('click', function () {
-        let squareColor = this.style.backgroundColor;
-        // alert(pickedColor);
-        // alert(squareColor);
-        if (squareColor === pickedColor) {
-            guess.textContent = 'Correct!'
-            h1.style.backgroundColor = pickedColor;
-            h1.style.color = 'white';
-            changeColor(pickedColor);
-            resetBtn.textContent = 'Play Again?';
-        } else {
-            this.style.opacity = 0;
-            guess.textContent = 'Wrong Guess!'
-        }
-
-    })
-}
+    gameRestart();
+});
 
 function changeColor(color) {
     for (let i = 0; i < squares.length; i++) {
@@ -93,9 +38,7 @@ function changeColor(color) {
         if (squares[i].style.opacity == '0') {
             squares[i].style.opacity = 1;
         }
-
     }
-
 }
 
 function pickColor() {
@@ -110,6 +53,26 @@ function randomColor() {
     return `rgb(${r}, ${g}, ${b})`;
 }
 
+function gameLogic() {
+    for (let i = 0; i < squares.length; i++) {
+        // add square event listener(click event);
+        squares[i].addEventListener('click', function () {
+            let squareColor = this.style.backgroundColor;
+
+            if (squareColor === pickedColor) {
+                guess.textContent = 'Correct!';
+                h1.style.backgroundColor = pickedColor;
+                h1.style.color = 'white';
+                changeColor(pickedColor);
+                resetBtn.textContent = 'Play Again?';
+            } else {
+                this.style.opacity = 0;
+                guess.textContent = 'Wrong Guess!';
+            }
+        })
+    }
+}
+
 function generateRandomColors(num) {
     const arr = [];
     for (let i = 0; i < num; i++) {
@@ -118,3 +81,56 @@ function generateRandomColors(num) {
     }
     return arr;
 }
+
+function gameRestart() {
+    colors = generateRandomColors(numOfSquares);
+    pickedColor = pickColor();
+    colorDisplay.textContent = pickedColor;
+    h1.style.backgroundColor = "steelblue";
+    h1.style.color = 'white';
+    guess.textContent = '';
+    resetBtn.textContent = 'New colors';
+
+    for (let i = 0; i < squares.length; i++) {
+        if (colors[i]) {
+            squares[i].style.display = "block";
+            squares[i].style.backgroundColor = colors[i];
+        } else {
+            squares[i].style.display = "none";
+        }
+    }
+}
+
+function levelButtonSetUp() {
+    for (let i = 0; i < levelBtns.length; i++) {
+        levelBtns[i].addEventListener('click', function () {
+            levelBtns[0].classList.remove('selected');
+            levelBtns[1].classList.remove('selected');
+            this.classList.add('selected');
+            this.textContent === "Easy" ? numOfSquares = 3 : numOfSquares = 6;
+            gameRestart()
+        });
+    }
+}
+
+// function RestartColorHard() {
+
+//     if (numOfSquares === 6) {
+//         for (let i = 0; i < squares.length; i++) {
+
+//             squares[i].style.backgroundColor = colors[i];
+//             squares[i].style.display = "block";
+
+//         }
+//     } else if (numOfSquares === 3) {
+//         for (let i = 0; i < squares.length; i++) {
+//             if (colors[i]) {
+//                 squares[i].style.backgroundColor = colors[i];
+//             } else {
+//                 squares[i].style.display = "none";
+//             }
+
+//         }
+//     }
+
+// }

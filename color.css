@@ -8,6 +8,10 @@ main{
     height: 80vh;
 }
 
+main > div:first-of-type{
+    background-color: white;
+}
+
 h1 {
     color: white;
     text-align: center;
@@ -29,10 +33,6 @@ h1 {
     text-transform: uppercase;
     display: block;
     margin: 5px 0;
-}
-
-div:first-of-type{
-    background-color: white;
 }
 
 .game-controls {
